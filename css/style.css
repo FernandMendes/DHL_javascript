@@ -1,4 +1,45 @@
+body{
+    background-image: url("../img/bg.jpg");
+    background-size: 100vw 100vh;
+}
 h1{
     color: tomato;
     font-weight: 900;
+}
+#formulaire{
+    border: 1px solid black;
+    border-radius: 7px;
+    /* border-top-right-radius: 25px; */
+}
+.postit{
+    background-color: rgba(255, 0, 242, 0.384);
+    width: 20%;
+    min-width: 300px;
+    /* pour les mettre sur toute la longueur de la fenetre */
+    display: inline-block;
+    /* marge interieur */
+    padding: 10px;
+    /* marge exterieur */
+    margin-left: 10px;
+    border: 1px solid darkgrey;
+    border-radius: 7px;
+    border-bottom-right-radius: 15px;
+    box-shadow: 15px 15px 25px grey;
+    text-align: center;
+}
+.postit-titre{
+    font-size: xx-large;
+    text-decoration: underline tomato;
+    margin-bottom: 8px;
+}
+.postit .datetime{
+    font-weight: 900;
+    font-size: x-large;
+}
+@media print{
+    body{
+        background-image: none;
+        background-color: cadetblue;
+        color: tomato;
+    }
 }
