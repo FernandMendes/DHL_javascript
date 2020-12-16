@@ -1,8 +1,10 @@
+// const moment = require("moment");
+
 // attendre la fin du chargement pour initialiser les fcts JS
 window.addEventListener('load',function (evt) {
     initialisationJS('Jean');
     document.querySelector('form').addEventListener('submit',formSubmited)
-    createPostit('tutu','2020-12-21','12:12:12','Descritopyion')
+    //createPostit('tutu','2020-12-21','12:12:12','Descritopyion')
 });
 
 function initialisationJS(prenom){
@@ -20,6 +22,15 @@ function formSubmited(evt) {
     console.log(evt.target[1].name + "=" + evt.target[1].value);
     console.log(evt.target[2].name + "=" + evt.target[2].value);
     console.log(evt.target[3].name + "=" + evt.target[3].value);
+    var monFormulaire=document.forms['editor-form'];
+    // var dateFormated=moment(monFormulaire['date'].value,'DD/MM/YYYY')
+
+    createPostit(
+        monFormulaire['title'].value,
+        monFormulaire['date'].value,
+        monFormulaire['time'].value,
+        monFormulaire['description'].value
+    );
 };
 
 /**
