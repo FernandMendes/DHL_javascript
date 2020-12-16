@@ -54,10 +54,14 @@ function createPostit(titre,date,heure,description) {
     date: <span class="datetime">'+date+'</span> heure : <span class="datetime">'+heure+'</span>\
     <h2>Description:</h2>'+description;
 
+    // selection de l'image close
+    postit.querySelector('.close img').addEventListener('click',deletePostit);
+
     var liste=document.querySelector('#list');
     liste.append(postit);
 }
 function deletePostit(evt) {
-    console.log('evenement lier à la suppression',evt)
-    
+    console.log('evenement lier à la suppression',evt);
+    //alert('delete called')
+    evt.currentTarget.parentElement.parentElement.remove()
 }
