@@ -11,15 +11,19 @@ h1 {
 #formulaire {
     border: 1px solid black;
     border-radius: 7px;
-    min-width: 400px;
-    width: 60%;
-    margin-left: 20%;
+    min-width: 300px;
+    width: 40%;
+    margin-left: 30%;
     padding: 10px;
     background-color: rgba(71, 255, 132, 0.699);
     box-shadow: 30px 30px 45px black;
     text-align: center;
     /* border-top-right-radius: 25px; */
 }
+#formulaire h1{
+    margin-top: 0;
+}
+
 
 #editor {
     margin-bottom: 25px;
