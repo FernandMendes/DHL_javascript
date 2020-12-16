@@ -5,28 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes post It&copy;</title>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
-    
+
     <div id="main">
         <div id="editor">
-            <div id=formulaire>
-                <h1>Titre de la note:</h1>
-                Mon titre de note
-                date: 15/12/2020 <br/> heure : 12:12:12
-                <h2>Description:</h2>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, ratione nobis? Quis cumque error quam!
-                Fugit aut sit dolore qui, dicta laboriosam hic perspiciatis soluta molestias quaerat voluptas distinctio
-                eveniet.
+            <div id="formulaire">
+                <form action="#" method="POST" name="editor-form">
+                    <h1>Titre de la note:</h1>
+                    <input type="text" name="title" id="editor-title" placeholder="Saisissez le titre" />
+                    <br />
+                    <div style="display: inline-block;">
+                        <h4>date :</h4>
+                        <input type="date" name="date" id="editor-date" />
+                    </div>
+                    <div style="display: inline-block;">
+                        <h4>heure :</h4>
+                        <input type="time" name="time" id="editor-time" />
+                    </div>
+                    <h2>Description:</h2>
+                    <textarea name="description" id="editor-description" cols="60" rows="5"
+                        placeholder="Saisissez le texte ici"></textarea>
+                    <div>
+                        <input type="reset" value="Reinit.">
+                        <input type="submit" value="valider">
+                    </div>
+                </form>
             </div>
         </div>
         <hr />
         <div id="list">
             <div class="postit">
                 <div class="postit-titre">Mon titre de note</div>
-                date: <span class="datetime">15/12/2020</span>  heure : <span class="datetime">12:12:12</span>
+                date: <span class="datetime">15/12/2020</span> heure : <span class="datetime">12:12:12</span>
                 <h2>Description:</h2>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, ratione nobis? Quis cumque error quam!
                 Fugit aut sit dolore qui, dicta laboriosam hic perspiciatis soluta molestias quaerat voluptas distinctio
@@ -34,7 +47,7 @@
             </div>
             <div class="postit">
                 <div class="postit-titre">Mon titre de note</div>
-                date: <span class="datetime">15/12/2020</span>  heure : <span class="datetime">12:12:12</span>
+                date: <span class="datetime">15/12/2020</span> heure : <span class="datetime">12:12:12</span>
                 <h2>Description:</h2>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, ratione nobis? Quis cumque error quam!
                 Fugit aut sit dolore qui, dicta laboriosam hic perspiciatis soluta molestias quaerat voluptas distinctio
