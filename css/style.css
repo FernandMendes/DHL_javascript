@@ -52,6 +52,10 @@ h1 {
     margin-bottom: 8px;
 }
 
+/* tout le enfant de list */
+#list>*{
+    vertical-align: top;
+}
 .postit .datetime {
     font-weight: 900;
     font-size: x-large;
