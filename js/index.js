@@ -46,10 +46,18 @@ function createPostit(titre,date,heure,description) {
     // create class
     postit.classList.add('postit');
     //postitTmp.classList.remove('postit');
-    postit.innerHTML='<div class="postit-titre">'+titre+'</div>\
+
+
+    postit.innerHTML='\
+    <div class="close"><img src="img/delete.png" style="width: 32px ; height: 32px;"></div>\
+    <div class="postit-titre">'+titre+'</div>\
     date: <span class="datetime">'+date+'</span> heure : <span class="datetime">'+heure+'</span>\
     <h2>Description:</h2>'+description;
 
     var liste=document.querySelector('#list');
     liste.append(postit);
+}
+function deletePostit(evt) {
+    console.log('evenement lier à la suppression',evt)
+    
 }

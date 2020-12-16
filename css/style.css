@@ -61,6 +61,10 @@ h1 {
     font-size: x-large;
 }
 
+.close {
+    float: right
+}
+
 @media print {
     body {
         background-image: none;
