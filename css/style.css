@@ -1,17 +1,30 @@
-body{
+body {
     background-image: url("../img/bg.jpg");
     background-size: 100vw 100vh;
 }
-h1{
+
+h1 {
     color: tomato;
     font-weight: 900;
 }
-#formulaire{
+
+#formulaire {
     border: 1px solid black;
     border-radius: 7px;
+    min-width: 400px;
+    width: 60%;
+    margin-left: 20%;
+    padding: 10px;
+    background-color: rgba(71, 255, 132, 0.699);
+    box-shadow: 30px 30px 45px black;
     /* border-top-right-radius: 25px; */
 }
-.postit{
+
+#editor {
+    margin-bottom: 25px;
+}
+
+.postit {
     background-color: rgba(255, 0, 242, 0.384);
     width: 20%;
     min-width: 300px;
@@ -27,17 +40,20 @@ h1{
     box-shadow: 15px 15px 25px grey;
     text-align: center;
 }
-.postit-titre{
+
+.postit-titre {
     font-size: xx-large;
     text-decoration: underline tomato;
     margin-bottom: 8px;
 }
-.postit .datetime{
+
+.postit .datetime {
     font-weight: 900;
     font-size: x-large;
 }
-@media print{
-    body{
+
+@media print {
+    body {
         background-image: none;
         background-color: cadetblue;
         color: tomato;
