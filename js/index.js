@@ -63,5 +63,6 @@ function createPostit(titre,date,heure,description) {
 function deletePostit(evt) {
     console.log('evenement lier à la suppression',evt);
     //alert('delete called')
-    evt.currentTarget.parentElement.parentElement.remove()
+    //evt.currentTarget.parentElement.parentElement.remove()
+    evt.path[2].remove()
 }

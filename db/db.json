@@ -1,0 +1,29 @@
+{
+  "postit": [
+    {
+      "id": 0,
+      "titre": "Mon premier postit",
+      "datetime": "2020-12-17T10:06:00",
+      "description": "The description"
+    },
+    {
+      "id": 1,
+      "titre": "Mon 2nd postit",
+      "datetime": "2020-12-17T10:10:00",
+      "description": "The 2nddescription"
+    },
+    {
+      "titre": "4nd postit modifier",
+      "datetime": "2020-12-17T10:10:01",
+      "description": "The 3rd description",
+      "id": 3,
+      "adresse": "n importe ou"
+    }
+  ],
+  "proprietaire": {
+    "nom": "Mendes",
+    "prenom": "Fernand",
+    "mail": "fernand.mendes@kontron.com",
+    "thelephone": "0685021978"
+  }
+}
