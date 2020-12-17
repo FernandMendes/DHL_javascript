@@ -3,8 +3,20 @@
 // attendre la fin du chargement pour initialiser les fcts JS
 window.addEventListener('load',function (evt) {
     initialisationJS('Jean');
-    document.querySelector('form').addEventListener('submit',formSubmited)
+    document.querySelector('form').addEventListener('submit',formSubmited);
     //createPostit('tutu','2020-12-21','12:12:12','Descritopyion')
+    //chargement initail des postit
+    // var crud=new Crud(BASE_URL)
+    //....
+    // ou mieux
+    (new Crud(BASE_URL)).recuperer('/postit',function(mesPosTits){
+        console.log('j ai finit de recevoir mes postit:',mesPosTits);
+        mesPosTits.forEach(function(postit) {
+            console.log(postit);
+            //createPostit(postit.titre,postit.datetime.substring(0,10),postit.datetime.substring(12),postit.description);
+            createPostit(postit);
+        });
+    });
 });
 
 function initialisationJS(prenom){
@@ -33,6 +45,7 @@ function formSubmited(evt) {
     );
 };
 
+
 /**
  * 
  * @param {string} titre titre du post It
@@ -40,14 +53,37 @@ function formSubmited(evt) {
  * @param {string} heure heure HH:MM:SS
  * @param {string} description desc
  */
+/**function createPostit(titre,date,heure,description) {
+//  var postit=document.createElement('div');
+    // create class
+//  postit.classList.add('postit');
+    //postitTmp.classList.remove('postit');
 
-function createPostit(titre,date,heure,description) {
+
+  //  postit.innerHTML='\
+  //  <div class="close"><img src="img/delete.png" style="width: 32px ; height: 32px;"></div>\
+  //  <div class="postit-titre">'+titre+'</div>\
+  //  date: <span class="datetime">'+date+'</span> heure : <span class="datetime">'+heure+'</span>\
+  //  <h2>Description:</h2>'+description;
+
+    // selection de l'image close
+    //postit.querySelector('.close img').addEventListener('click',deletePostit);
+
+    //var liste=document.querySelector('#list');
+    //liste.append(postit);
+//}
+*/
+function createPostit(obj) {
+    var titre=obj.titre;
+    var date=obj.datetime.substring(0,10);
+    var heure=obj.datetime.substring(12)
+    var description=obj.description
+
     var postit=document.createElement('div');
     // create class
     postit.classList.add('postit');
     //postitTmp.classList.remove('postit');
-
-
+    
     postit.innerHTML='\
     <div class="close"><img src="img/delete.png" style="width: 32px ; height: 32px;"></div>\
     <div class="postit-titre">'+titre+'</div>\
