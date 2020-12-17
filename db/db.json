@@ -13,22 +13,16 @@
       "description": "The 2nddescription"
     },
     {
-      "titre": "new note",
-      "datetime": "2020-12-17T12:12:12",
-      "description": "new new desc",
-      "id": 4
+      "titre": "Mon nouveau postit",
+      "datetime": "2020-12-18T10:10:00",
+      "description": "The 2nd new description",
+      "id": 2
     },
     {
-      "titre": "new newnote",
-      "datetime": "2020-12-17T12:12:12",
-      "description": "new new desc",
-      "id": 5
-    },
-    {
-      "titre": "encore une",
-      "datetime": "2020-12-17T12:12:12",
-      "description": "new new desc",
-      "id": 6
+      "titre": "Mon nouveau postit",
+      "datetime": "2020-12-18T10:10:00",
+      "description": "The 2nd new description",
+      "id": 3
     }
   ],
   "proprietaire": {
