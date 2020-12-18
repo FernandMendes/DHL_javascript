@@ -92,6 +92,7 @@ function createPostitByObject(postitInput) {
     // create class
     postit.classList.add('postit');
     //postitTmp.classList.remove('postit');
+    postit.addEventListener('dblclick',putinformclickedpostit);
 
     postit.innerHTML = '\
     <div class="close"><img src="img/delete.png" style="width: 32px ; height: 32px;"></div>\
@@ -107,6 +108,8 @@ function createPostitByObject(postitInput) {
     liste.append(postit);
 }
 function deletePostit(evt) {
+    // evite que d'autre evenements se declenche
+    evt.stopPropagation();
     console.log('evenement lier à la suppression', evt);
     //alert('delete called')
     //evt.currentTarget.parentElement.parentElement.remove()
@@ -115,4 +118,11 @@ function deletePostit(evt) {
         evt.path[2].remove()
     });
     //evt.path[2].remove()
+}
+function putinformclickedpostit(evt){
+    console.log('j\'ai double clicker sur un post it',evt)
+    
+
+
+
 }
