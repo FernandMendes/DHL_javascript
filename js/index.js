@@ -1,26 +1,37 @@
 // const moment = require("moment");
-
+// postit index dans db.json
+var lastId = 0;
+var descripteurDinterval;
 // attendre la fin du chargement pour initialiser les fcts JS
 window.addEventListener('load', function (evt) {
     initialisationJS('Jean');
     document.querySelector('form').addEventListener('submit', formSubmited);
+    document.querySelector('form').addEventListener('reset', formReseted);
+
     //document.forms['editor-form']['date'].value=(new Date()).toUTCString;
-    document.forms['editor-form']['date'].value=(new Date()).toISOString().substring(0,10);
+    document.forms['editor-form']['date'].value = (new Date()).toISOString().substring(0, 10);
     //document.forms['editor-form']['time'].value=(new Date()).toISOString().substring(11,16);
-    document.forms['editor-form']['time'].value=(new Date()).toTimeString().substring(0,5);
+    document.forms['editor-form']['time'].value = (new Date()).toTimeString().substring(0, 5);
     //createPostit('tutu','2020-12-21','12:12:12','Descritopyion')
     //chargement initial des postit
     // var crud=new Crud(BASE_URL)
     //....
     // ou mieux
-    (new Crud(BASE_URL)).recuperer('/postit', function (mesPosTits) {
-        console.log('j ai finit de recevoir mes postit:', mesPosTits);
-        mesPosTits.forEach(function (postit) {
-            console.log(postit);
-            //createPostit(postit.titre,postit.datetime.substring(0,10),postit.datetime.substring(12),postit.description);
-            createPostitByObject(postit);
-        });
-    });
+
+    // remplacer par pullingFunction (effectuer toute les seconde)
+    //
+    // (new Crud(BASE_URL)).recuperer('/postit', function (mesPosTits) {
+    //     console.log('j ai finit de recevoir mes postit:', mesPosTits);
+    //     mesPosTits.forEach(function (postit) {
+    //         console.log(postit);
+    //         //createPostit(postit.titre,postit.datetime.substring(0,10),postit.datetime.substring(12),postit.description);
+    //         if (lastId < postit.id) { lastId = postit.id }
+    //         createPostitByObject(postit);
+    //     });
+    // });
+
+    descripteurDinterval = setInterval(pullingFunction, 1000);
+
 });
 
 function initialisationJS(prenom) {
@@ -59,10 +70,11 @@ function formSubmited(evt) {
         postit.id = monFormulaire['id'].value;
     };
     (new Crud(BASE_URL)).envoiRessource('/postit', postit, function (objsaved) {
-        if(undefined !== postit.id) {
-            document.querySelector('#postit-'+postit.id).remove();
+        if (undefined !== postit.id) {
+            document.querySelector('#postit-' + postit.id).remove();
         }
         createPostitByObject(objsaved)
+        monFormulaire.reset();
     });
     // createPostit(
     //     monFormulaire['title'].value,
@@ -103,7 +115,7 @@ function createPostit(titre, date, heure, description) {
  */
 
 function createPostitByObject(postitInput) {
-
+    if (lastId < postitInput.id) { lastId = postitInput.id }
     var postit = document.createElement('div');
     postit.id = 'postit-' + postitInput.id;
     // create class
@@ -153,4 +165,27 @@ function putinformclickedpostit(evt) {
     document.forms["editor-form"]["description"].value = postit.querySelector('.postit-description').innerText;
     document.forms["editor-form"]["id"].value = postit.id.substring(7);
 
+}
+/**
+ * 
+ * @param {*} evt 
+ */
+const formReseted = (evt) => {
+    const form = document.forms['editor-form'];
+    for (let i = 0; i < form.length; i++) {
+        if (form[i].type !== 'reset' && form[i].type !== 'submit') {
+            form[i].value = '';
+        };
+    };
+}
+/**
+ * 
+ */
+const pullingFunction = () => {
+    (new Crud(BASE_URL)).recuperer('/postit?id_gte=' + (lastId + 1), (listeDesPostIt) => {
+        listeDesPostIt.map((element, index, listeOriginel) => {
+            lastId = (lastId < element.id ? element.id : lastId);
+            createPostitByObject(element);
+        });
+    });
 }
