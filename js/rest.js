@@ -1,10 +1,16 @@
 var BASE_URL = 'http://localhost:5629'
+
+
+/**
+ * 
+ * @param {str} baseurl path after BASE_URL 
+ */
 var Crud = function (baseurl) {
     /** get
      * 
      * @param {uri} url example: '/postit' (Attention pas url complet)
      */
-    function get(url, callback) {
+    function _get(url, callback) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', baseurl + url)
         xhr.onreadystatechange = function (evt) {
@@ -19,17 +25,19 @@ var Crud = function (baseurl) {
      * 
      * @param {uri} url chemin du post
      * @param {object} resource data a envoyer
+     * @param {function} callback callback function
      */
-    function post(url, resource) {
+    function _post(url, resource,callback) {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', baseurl + url);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.setRequestHeader('Accept', 'application/json');
 
         xhr.onreadystatechange = function (evt) {
-            if (xhr.readyState < XMLHttpRequest.DONE) { return; }
+            if (xhr.readyState < XMLHttpRequest.DONE || xhr.status != 201 ) { return; }
             var objt = JSON.parse(xhr.response);
             console.log(objt);
+            callback(objt);
         }
         xhr.send(JSON.stringify(resource));
     }
@@ -40,7 +48,7 @@ var Crud = function (baseurl) {
      * @param {Function} callback delete resource url
      */
 
-    function remove(url, callback) {
+    function _delete(url, callback) {
         var xhr = new XMLHttpRequest();
         xhr.open('DELETE', baseurl + url);
         xhr.onreadystatechange = function (evt) {
@@ -54,7 +62,7 @@ var Crud = function (baseurl) {
      * @param {uri} url chemin du post
      * @param {object} resource data a envoyer
      */
-    function put(url, resource) {
+    function _put(url, resource) {
         var xhr = new XMLHttpRequest();
         xhr.open('PUT', baseurl + url);
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -67,10 +75,10 @@ var Crud = function (baseurl) {
         }
         xhr.send(JSON.stringify(resource));
     }
-    this.recuperer = get;
-    this.creer = post;
-    this.mettreajour = put;
-    this.supprimer = remove;
+    this.recuperer = _get;
+    this.creer = _post;
+    this.mettreajour = _put;
+    this.supprimer = _delete;
 
 }
 

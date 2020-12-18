@@ -5,7 +5,7 @@ window.addEventListener('load', function (evt) {
     initialisationJS('Jean');
     document.querySelector('form').addEventListener('submit', formSubmited);
     //createPostit('tutu','2020-12-21','12:12:12','Descritopyion')
-    //chargement initail des postit
+    //chargement initial des postit
     // var crud=new Crud(BASE_URL)
     //....
     // ou mieux
@@ -30,22 +30,30 @@ function formSubmited(evt) {
     evt.preventDefault();
     console.log("Mon formulaire est submited")
     // console.log(evt)
-    console.log(evt.target[0].name + "=" + evt.target[0].value);
-    console.log(evt.target[1].name + "=" + evt.target[1].value);
-    console.log(evt.target[2].name + "=" + evt.target[2].value);
-    console.log(evt.target[3].name + "=" + evt.target[3].value);
+    // console.log(evt.target[0].name + "=" + evt.target[0].value);
+    // console.log(evt.target[1].name + "=" + evt.target[1].value);
+    // console.log(evt.target[2].name + "=" + evt.target[2].value);
+    // console.log(evt.target[3].name + "=" + evt.target[3].value);
+
+
+    var postit={
+        titre:evt.target[0].value,
+        datetime:evt.target[1].value+'T'+evt.target[2].value,
+        description:evt.target[3].value
+    };
+    console.log(postit);
     var monFormulaire = document.forms['editor-form'];
     // var dateFormated=moment(monFormulaire['date'].value,'DD/MM/YYYY')
-
-    createPostit(
-        monFormulaire['title'].value,
-        monFormulaire['date'].value,
-        monFormulaire['time'].value,
-        monFormulaire['description'].value
-    );
+    (new Crud(BASE_URL)).creer('/postit',postit,function(objsaved) {
+        createPostitByObject(objsaved)
+    });
+    // createPostit(
+    //     monFormulaire['title'].value,
+    //     monFormulaire['date'].value,
+    //     monFormulaire['time'].value,
+    //     monFormulaire['description'].value
+    // );
 };
-
-
 /**
  * 
  * @param {string} titre titre du post It
@@ -72,8 +80,6 @@ function createPostit(titre, date, heure, description) {
     var liste = document.querySelector('#list');
     liste.append(postit);
 }
-
-
 /**
  * 
  * @param {object} obj the postit 
@@ -91,7 +97,7 @@ function createPostitByObject(postitInput) {
     <div class="close"><img src="img/delete.png" style="width: 32px ; height: 32px;"></div>\
     <div class="postit-titre">'+ postitInput.titre + '</div>\
     date: <span class="datetime">'+ postitInput.datetime.substring(0, 10) + '\
-    </span> heure : <span class="datetime">'+ postitInput.datetime.substring(12) + '</span>\
+    </span> heure : <span class="datetime">'+ postitInput.datetime.substring(11) + '</span>\
     <h2>Description:</h2>'+ postitInput.description;
 
     // selection de l'image close
