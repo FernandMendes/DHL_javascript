@@ -27,14 +27,14 @@ var Crud = function (baseurl) {
      * @param {object} resource data a envoyer
      * @param {function} callback callback function
      */
-    function _post(url, resource,callback) {
+    function _post(url, resource, callback) {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', baseurl + url);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.setRequestHeader('Accept', 'application/json');
 
         xhr.onreadystatechange = function (evt) {
-            if (xhr.readyState < XMLHttpRequest.DONE || xhr.status != 201 ) { return; }
+            if (xhr.readyState < XMLHttpRequest.DONE || xhr.status != 201) { return; }
             var objt = JSON.parse(xhr.response);
             console.log(objt);
             callback(objt);
@@ -61,8 +61,9 @@ var Crud = function (baseurl) {
      * update a url
      * @param {uri} url chemin du post
      * @param {object} resource data a envoyer
+     * @param {function} callback data a envoyer
      */
-    function _put(url, resource) {
+    function _put(url, resource, callback) {
         var xhr = new XMLHttpRequest();
         xhr.open('PUT', baseurl + url);
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -72,14 +73,30 @@ var Crud = function (baseurl) {
             if (xhr.readyState < XMLHttpRequest.DONE) { return; }
             var objt = JSON.parse(xhr.response);
             console.log(objt);
+            callback(JSON.parse(xhr.response));
         }
         xhr.send(JSON.stringify(resource));
     }
+    
+    /**
+     * 
+     * @param {uri} resourceUrl 
+     * @param {object} resource 
+     * @param {function} callback 
+     */
+
+    function _envoie(resourceUrl, resource, callback) {
+        if (undefined !== resource.id) {
+            _put(resourceUrl+'/'+resource.id, resource, callback);
+        } else {
+            _post(resourceUrl, resource, callback);
+        }
+    }
+
     this.recuperer = _get;
-    this.creer = _post;
     this.mettreajour = _put;
     this.supprimer = _delete;
-
+    this.envoiRessource = _envoie;
 }
 
 

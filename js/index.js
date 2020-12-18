@@ -4,6 +4,10 @@
 window.addEventListener('load', function (evt) {
     initialisationJS('Jean');
     document.querySelector('form').addEventListener('submit', formSubmited);
+    //document.forms['editor-form']['date'].value=(new Date()).toUTCString;
+    document.forms['editor-form']['date'].value=(new Date()).toISOString().substring(0,10);
+    //document.forms['editor-form']['time'].value=(new Date()).toISOString().substring(11,16);
+    document.forms['editor-form']['time'].value=(new Date()).toTimeString().substring(0,5);
     //createPostit('tutu','2020-12-21','12:12:12','Descritopyion')
     //chargement initial des postit
     // var crud=new Crud(BASE_URL)
@@ -25,6 +29,11 @@ function initialisationJS(prenom) {
     jsload.style.backgroundColor = 'LIME';
 };
 
+/**
+ * 
+ * @param {event} evt Called by "Submit"
+ */
+
 function formSubmited(evt) {
     // pour garder le teste dans console log
     evt.preventDefault();
@@ -36,15 +45,23 @@ function formSubmited(evt) {
     // console.log(evt.target[3].name + "=" + evt.target[3].value);
     var monFormulaire = document.forms['editor-form'];
 
-    var postit={
-        titre:monFormulaire['title'].value,
-        datetime:monFormulaire['date'].value+'T'+monFormulaire['time'].value,
-        description:monFormulaire['description'].value
+    var postit = {
+        titre: monFormulaire['title'].value,
+        datetime: monFormulaire['date'].value + 'T' + monFormulaire['time'].value,
+        description: monFormulaire['description'].value
     };
     console.log(postit);
     //var monFormulaire = document.forms['editor-form'];
     // var dateFormated=moment(monFormulaire['date'].value,'DD/MM/YYYY')
-    (new Crud(BASE_URL)).creer('/postit',postit,function(objsaved) {
+    // !== <=> diferent et de type different
+    // 
+    if (monFormulaire['id'].value !== '') {
+        postit.id = monFormulaire['id'].value;
+    };
+    (new Crud(BASE_URL)).envoiRessource('/postit', postit, function (objsaved) {
+        if(undefined !== postit.id) {
+            document.querySelector('#postit-'+postit.id).remove();
+        }
         createPostitByObject(objsaved)
     });
     // createPostit(
@@ -92,14 +109,14 @@ function createPostitByObject(postitInput) {
     // create class
     postit.classList.add('postit');
     //postitTmp.classList.remove('postit');
-    postit.addEventListener('dblclick',putinformclickedpostit);
+    postit.addEventListener('dblclick', putinformclickedpostit);
 
     postit.innerHTML = '\
     <div class="close"><img src="img/delete.png" style="width: 32px ; height: 32px;"></div>\
     <div class="postit-titre">'+ postitInput.titre +
-    '</div>date: <span class="datetime postit-date">'+ postitInput.datetime.substring(0, 10) +
-    '</span> heure : <span class="datetime postit-heure">'+ postitInput.datetime.substring(11) + 
-    '</span>\
+        '</div>date: <span class="datetime postit-date">' + postitInput.datetime.substring(0, 10) +
+        '</span> heure : <span class="datetime postit-heure">' + postitInput.datetime.substring(11) +
+        '</span>\
     <h2>Description:</h2><div class="postit-description">'+ postitInput.description + '</div>';
 
     // selection de l'image close
@@ -120,8 +137,8 @@ function deletePostit(evt) {
     });
     //evt.path[2].remove()
 }
-function putinformclickedpostit(evt){
-    console.log('j\'ai double clicker sur un post it',evt)
+function putinformclickedpostit(evt) {
+    console.log('j\'ai double clicker sur un post it', evt)
     var postit = evt.currentTarget;
     console.log(
         postit.id.substring(7),
@@ -130,10 +147,10 @@ function putinformclickedpostit(evt){
         postit.querySelector('.postit-heure').innerText,
         postit.querySelector('.postit-description').innerText,
     );
-    document.forms["editor-form"]["title"].value=postit.querySelector('.postit-titre').innerText;
-    document.forms["editor-form"]["date"].value=postit.querySelector('.postit-date').innerText;
-    document.forms["editor-form"]["time"].value=postit.querySelector('.postit-heure').innerText;
-    document.forms["editor-form"]["description"].value=postit.querySelector('.postit-description').innerText;
-    document.forms["editor-form"]["id"].value=postit.id.substring(7);
+    document.forms["editor-form"]["title"].value = postit.querySelector('.postit-titre').innerText;
+    document.forms["editor-form"]["date"].value = postit.querySelector('.postit-date').innerText;
+    document.forms["editor-form"]["time"].value = postit.querySelector('.postit-heure').innerText;
+    document.forms["editor-form"]["description"].value = postit.querySelector('.postit-description').innerText;
+    document.forms["editor-form"]["id"].value = postit.id.substring(7);
 
 }
