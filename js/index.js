@@ -34,15 +34,15 @@ function formSubmited(evt) {
     // console.log(evt.target[1].name + "=" + evt.target[1].value);
     // console.log(evt.target[2].name + "=" + evt.target[2].value);
     // console.log(evt.target[3].name + "=" + evt.target[3].value);
-
+    var monFormulaire = document.forms['editor-form'];
 
     var postit={
-        titre:evt.target[0].value,
-        datetime:evt.target[1].value+'T'+evt.target[2].value,
-        description:evt.target[3].value
+        titre:monFormulaire['title'].value,
+        datetime:monFormulaire['date'].value+'T'+monFormulaire['time'].value,
+        description:monFormulaire['description'].value
     };
     console.log(postit);
-    var monFormulaire = document.forms['editor-form'];
+    //var monFormulaire = document.forms['editor-form'];
     // var dateFormated=moment(monFormulaire['date'].value,'DD/MM/YYYY')
     (new Crud(BASE_URL)).creer('/postit',postit,function(objsaved) {
         createPostitByObject(objsaved)
@@ -96,10 +96,11 @@ function createPostitByObject(postitInput) {
 
     postit.innerHTML = '\
     <div class="close"><img src="img/delete.png" style="width: 32px ; height: 32px;"></div>\
-    <div class="postit-titre">'+ postitInput.titre + '</div>\
-    date: <span class="datetime">'+ postitInput.datetime.substring(0, 10) + '\
-    </span> heure : <span class="datetime">'+ postitInput.datetime.substring(11) + '</span>\
-    <h2>Description:</h2>'+ postitInput.description;
+    <div class="postit-titre">'+ postitInput.titre +
+    '</div>date: <span class="datetime postit-date">'+ postitInput.datetime.substring(0, 10) +
+    '</span> heure : <span class="datetime postit-heure">'+ postitInput.datetime.substring(11) + 
+    '</span>\
+    <h2>Description:</h2><div class="postit-description">'+ postitInput.description + '</div>';
 
     // selection de l'image close
     postit.querySelector('.close img').addEventListener('click', deletePostit);
@@ -121,8 +122,18 @@ function deletePostit(evt) {
 }
 function putinformclickedpostit(evt){
     console.log('j\'ai double clicker sur un post it',evt)
-    
-
-
+    var postit = evt.currentTarget;
+    console.log(
+        postit.id.substring(7),
+        postit.querySelector('.postit-titre').innerText,
+        postit.querySelector('.postit-date').innerText,
+        postit.querySelector('.postit-heure').innerText,
+        postit.querySelector('.postit-description').innerText,
+    );
+    document.forms["editor-form"]["title"].value=postit.querySelector('.postit-titre').innerText;
+    document.forms["editor-form"]["date"].value=postit.querySelector('.postit-date').innerText;
+    document.forms["editor-form"]["time"].value=postit.querySelector('.postit-heure').innerText;
+    document.forms["editor-form"]["description"].value=postit.querySelector('.postit-description').innerText;
+    document.forms["editor-form"]["id"].value=postit.id.substring(7);
 
 }
